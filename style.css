@@ -1,0 +1,163 @@
+* {
+    font-family: 'Bruno Ace SC', cursive;
+}
+
+body {
+    height: 90vh;
+    display: grid;
+    place-items: center;
+}
+
+#gameboyBody {
+    border: 2px black solid;
+    border-radius: 10px;
+    width: 400px;
+    height: 600px;
+    display: grid;
+    grid-template-columns: 75% 25%;
+    grid-template-rows: 80% 20%;
+    grid-template-areas:
+    "screen     score"
+    "controls   start";
+}
+
+#screen {
+    width: 250px;
+    height: 500px;
+    position: relative;
+    top: -40px;
+    left: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    grid-area: screen;
+}
+
+.cell-blocks {
+    width: 25px;
+    height: 25px;
+    outline: 1px gray solid;
+    background-color: white
+}
+
+.display-screen {
+    width: 25px;
+    height: 25px;
+    outline: 1px gray solid;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.controls {
+    width: 200px;
+    height: 70px;
+    position: relative;
+    top: 40px;
+    left: 35px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    grid-area: controls;
+}
+
+.controls button {
+    width: 90px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+#start {
+    width: 90px;
+    height: 50px;
+    border-radius: 50px;
+    position: relative;
+    top: 40px;
+    grid-area: start;
+}
+
+#score-screen {
+    outline: 1px black solid;
+    width: 120px;
+    height: 80px;
+    position: relative;
+    top: 10px;
+    right: 30px;
+    grid-area: score;
+    text-align: center;
+    font-size: large;
+}
+
+#next-tetra {
+    width: 100px;
+    height: 80px;
+    position: relative;
+    top: 100px;
+    right: 30px;
+    grid-area: score;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#level-screen {
+    outline: 1px black solid;
+    width: 120px;
+    height: 80px;
+    position: relative;
+    top: 190px;
+    right: 30px;
+    grid-area: score;
+    text-align: center;
+    font-size: large;
+}
+
+.lightblue {
+    background-color: lightblue;
+}
+
+.yellow {
+    background-color: yellow;
+}
+
+.purple {
+    background-color: purple;
+}
+
+.green {
+    background-color: green;
+}
+
+.red {
+    background-color: red;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.row23, .row1, .row2 {
+    visibility: hidden;
+}
+
+.anima {
+    animation: bubble 500ms;
+}
+
+@keyframes bubble {
+    from {
+        background-color: red;
+        box-shadow: inset 5px 5px red;
+        transform: translateY(0%)
+    }
+    to {
+        background-color: purple;
+        box-shadow: inset 5px 5px 10px purple;
+        transform: translateY(100%)
+    }
+}
+
+
