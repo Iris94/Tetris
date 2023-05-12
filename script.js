@@ -1,11 +1,16 @@
-const [body, screen, startButton, nextTetra, width, score, level] = [
+const [body, screen, startButton, nextTetra, width, score, level, leftButton, rightButton, downButton, rotateButton, buttons] = [
   document.querySelector("#gameboyBody"),
   document.querySelector("#screen"),
   document.querySelector("#start"),
   document.querySelector("#next-tetra"),
   10,
   document.querySelector("#score"),
-  document.querySelector("#level")
+  document.querySelector("#level"),
+  document.querySelector("#left-button"),
+  document.querySelector("#right-button"),
+  document.querySelector("#down-button"),
+  document.querySelector("#rotate-button"),
+  document.querySelectorAll("button")
 ]
 
 //Loop for adding classes and divs
@@ -130,11 +135,11 @@ const L_next = new Tetra(
   [1, 5, 9, 10])
 
 const S_next = new Tetra(
-  'red',
+  'green',
   [2, 6, 5, 9])
 
 const Z_next = new Tetra(
-  'green',
+  'red',
   [1, 5, 6, 10])
 
 let current;
@@ -151,7 +156,7 @@ const getDisplayTetra = () => displayTetrominos[random]
 current = getNextTetra()
 next = getDisplayTetra()
 nextShape = current.shape[1]
-let position = 43;
+let position = 13;
 let rotationCount = 1;
 let singleLineCheck = false
 let startDisplay = false;
@@ -161,12 +166,42 @@ let leveling = 1;
 let updateScore = [10];
 let threshold = [100];
 let interval = 1000;
+let gameIsOver = false
+const themeSong = new Audio("/audio/theme.mp3")
+const collisionSound = new Audio("/audio/move.mp3")
 
-// function updateTimer() {
-//   interval = Math.floor(1000 - (leveling - 1) * 100);
-//   clearInterval(timer); 
-//   timer = setInterval(moveDown, interval); 
-// }
+startButton.addEventListener('click', function() {
+  timer = setInterval(moveDown, 1000);
+  themeSong.addEventListener('ended', function() {
+    this.currentTime = 0;
+    this.play();
+  }, false);
+  themeSong.play()
+});
+
+function updateTimer() {
+  interval = Math.floor(1000 - (leveling - 1) * 100);
+  clearInterval(timer); 
+  timer = setInterval(moveDown, interval); 
+}
+
+function gameOver() {
+  const gameover = startingPoint.some(index => index.classList.contains("collide"))
+
+  if (gameover) {
+    clearTimeout(timer)
+    buttons.forEach(function(button) {
+      button.classList.remove("pressed")
+    })
+    gameIsOver = true
+    themeSong.pause()
+    screen.innerHTML = ""
+    const gameOverScreen = document.createElement("div");
+    gameOverScreen.classList.add("game-over")
+    gameOverScreen.innerHTML = `Game Over<br>Your score is ${scoring}`;
+    body.append(gameOverScreen)
+  }
+}
 
 function updateScoring() {
   for (let i = 0; i < threshold.length; i++) {
@@ -178,7 +213,7 @@ function updateScoring() {
       threshold.shift()
       updateScore.shift()
       leveling++
-      // updateTimer()
+      updateTimer()
     }
   }
   score.textContent = scoring
@@ -215,12 +250,14 @@ drawNextShape()
 draw()
 
 function moveDown() {
+  if (!gameIsOver) {
   drawNextShape()
   undraw();
   position += width
   draw()
   collision()
   gameOver()
+}
 }
 
 function clearRow() {
@@ -246,6 +283,8 @@ function clearRow() {
         }, 500)
         scoring += numForScoring
         updateScoring()
+        const clearAudio = new Audio("/audio/clear.mp3")
+        clearAudio.play()
       }
       moveRestOfTetrimonos(i)
     }
@@ -282,6 +321,7 @@ function collision() {
 
   if (shape) {
     current.shape[0].forEach(index => cellsArray[position + index].classList.add("collide"))
+    collisionSound.play()
     clearRow()
     savedColor = next.color
 
@@ -355,29 +395,69 @@ function controlTetrominos() {
   addEventListener("keydown", event => {
     switch (event.key) {
       case 'ArrowLeft':
+        leftButton.classList.add("pressed");
         moveLeft();
+        setTimeout(function () {
+        leftButton.classList.remove("pressed");
+        }, 100);
         break;
       case 'ArrowRight':
+        rightButton.classList.add("pressed");
         moveRight();
+        setTimeout(function () {
+        rightButton.classList.remove("pressed");
+        }, 100);
         break;
       case 'ArrowDown':
+        downButton.classList.add("pressed");
         moveDown();
+        setTimeout(function () {
+        downButton.classList.remove("pressed")
+        }, 100)
         break;
       case 'ArrowUp':
+        rotateButton.classList.add("pressed");
         rotation();
+        setTimeout(function () {
+        rotateButton.classList.remove("pressed");
+        }, 100)
         break;
     }
   })
+
+  leftButton.addEventListener("click", function () {
+    leftButton.classList.add("pressed");
+    moveLeft();
+    setTimeout(function () {
+      leftButton.classList.remove("pressed");
+    }, 100);
+  });
+
+  rightButton.addEventListener("click", function () {
+    rightButton.classList.add("pressed");
+    moveRight();
+    setTimeout(function () {
+      rightButton.classList.remove("pressed");
+    }, 100);
+  });
+
+  rotateButton.addEventListener("click", function () {
+    rotateButton.classList.add("pressed");
+    rotation();
+    setTimeout(function () {
+      rotateButton.classList.remove("pressed");
+    }, 100)
+  })
+  
+  downButton.addEventListener("click", function () {
+    downButton.classList.add("pressed");
+    moveDown();
+    setTimeout(function () {
+      downButton.classList.remove("pressed")
+    }, 100)
+  })
 }
 controlTetrominos()
-
-function gameOver() {
-  const gameover = startingPoint.some(index => index.classList.contains("collide"))
-
-  if (gameover) {
-    clearTimeout(timer)
-  }
-}
 
 function rotationSwitch() {
   for (const tetromino of Tetrominos) {
@@ -395,7 +475,7 @@ function rotation() {
   const skipL = nextShape.some(index => cellsArray[index + position + width].classList.contains("leftEdge"))
   const skipR = nextShape.some(index => cellsArray[index + position + width].classList.contains("rightEdge"))
 
-  if (current.shape === I.shape &&
+  if (current.shape == I.shape &&
     (skip || skipL || skipR)) {
     return;
   }
@@ -461,7 +541,5 @@ function rotationPrecision() {
   }
 }
 
-
-// let timer = setInterval(moveDown, 1000)
 
 

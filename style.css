@@ -6,10 +6,11 @@ body {
     height: 90vh;
     display: grid;
     place-items: center;
+    background-image: url('/img/ribbon-light-space.jpg');
+    background-size: contain;
 }
 
 #gameboyBody {
-    border: 2px black solid;
     border-radius: 10px;
     width: 400px;
     height: 600px;
@@ -19,6 +20,9 @@ body {
     grid-template-areas:
     "screen     score"
     "controls   start";
+    background: linear-gradient(to top, rgb(40, 39, 39), rgb(71, 71, 71));
+    box-shadow: 3px 3px rgb(40, 39, 39);
+    color: white;
 }
 
 #screen {
@@ -32,19 +36,34 @@ body {
     grid-area: screen;
 }
 
+.game-over {
+    width: 250px;
+    height: 500px;
+    position: relative;
+    top: 10px;
+    left: 10px;
+    grid-area: screen;
+    background-color: rgb(24, 23, 23);
+    display: grid;
+    place-content: center;
+    font-size: x-large;
+    text-align: center;
+}
+
 .cell-blocks {
     width: 25px;
     height: 25px;
-    outline: 1px gray solid;
-    background-color: white
+    outline: 1px rgb(50, 49, 49) solid;
+    background-color: rgb(24, 23, 23)
 }
 
 .display-screen {
     width: 25px;
     height: 25px;
-    outline: 1px gray solid;
     display: flex;
     flex-wrap: wrap;
+    outline: 1px rgb(50, 49, 49) solid;
+    background-color: rgb(24, 23, 23);
 }
 
 .controls {
@@ -64,6 +83,8 @@ body {
     width: 90px;
     height: 30px;
     border-radius: 5px;
+    color: white;
+    background-color: darkred;
 }
 
 #start {
@@ -73,10 +94,11 @@ body {
     position: relative;
     top: 40px;
     grid-area: start;
+    color: white;
+    background-color: darkred
 }
 
 #score-screen {
-    outline: 1px black solid;
     width: 120px;
     height: 80px;
     position: relative;
@@ -85,6 +107,9 @@ body {
     grid-area: score;
     text-align: center;
     font-size: large;
+    background-color: rgb(24, 23, 23);
+    box-shadow:
+    inset -1px -1px gray
 }
 
 #next-tetra {
@@ -100,7 +125,6 @@ body {
 }
 
 #level-screen {
-    outline: 1px black solid;
     width: 120px;
     height: 80px;
     position: relative;
@@ -109,10 +133,13 @@ body {
     grid-area: score;
     text-align: center;
     font-size: large;
+    background-color: rgb(24, 23, 23);
+    box-shadow:
+    inset -1px -1px gray
 }
 
 .lightblue {
-    background-color: lightblue;
+    background-color: cyan;
 }
 
 .yellow {
@@ -120,19 +147,19 @@ body {
 }
 
 .purple {
-    background-color: purple;
+    background-color: violet;
 }
 
 .green {
-    background-color: green;
+    background-color: greenyellow;
 }
 
 .red {
-    background-color: red;
+    background-color: red
 }
 
 .blue {
-    background-color: blue;
+    background-color: lightskyblue;
 }
 
 .orange {
@@ -151,13 +178,25 @@ body {
     from {
         background-color: red;
         box-shadow: inset 5px 5px red;
+        opacity: 1;
         transform: translateY(0%)
     }
     to {
         background-color: purple;
         box-shadow: inset 5px 5px 10px purple;
+        opacity: 0;
         transform: translateY(100%)
     }
+}
+
+.pressed {
+    background-color: #ccc;
+    border: 1px solid #999;
+    box-shadow: inset 1px 1px 3px rgba(0,0,0,0.3);
+  }
+
+footer {
+    font-size: xx-small
 }
 
 
