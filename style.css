@@ -6,7 +6,7 @@ body {
     height: 90vh;
     display: grid;
     place-items: center;
-    background-image: url('/img/ribbon-light-space.jpg');
+    background-image: url('ribbon-light-space.jpg');
     background-size: contain;
 }
 
@@ -200,3 +200,205 @@ footer {
 }
 
 
+@media only screen and (max-width: 600px) {
+    
+    
+    body {
+        height: 90vh;
+        display: grid;
+        place-items: center;
+        background-image: url('ribbon-light-space.jpg');
+        background-size: contain;
+    }
+    
+    #gameboyBody {
+        border-radius: 10px;
+        width: 320px;
+        height: 480px;
+        display: grid;
+        grid-template-columns: 75% 25%;
+        grid-template-rows: 80% 20%;
+        grid-template-areas:
+        "screen     score"
+        "controls   start";
+        background: linear-gradient(to top, rgb(40, 39, 39), rgb(71, 71, 71));
+        box-shadow: 3px 3px rgb(40, 39, 39);
+        color: white;
+    }
+    
+    #screen {
+        width: 200px;
+        height: 400px;
+        position: relative;
+        top: -30px;
+        left: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        grid-area: screen;
+    }
+    
+    .game-over {
+        width: 200px;
+        height: 400px;
+        position: relative;
+        top: 10px;
+        left: 10px;
+        grid-area: screen;
+        background-color: rgb(24, 23, 23);
+        display: grid;
+        place-content: center;
+        font-size: x-large;
+        text-align: center;
+    }
+    
+    .cell-blocks {
+        width: 20px;
+        height: 20px;
+        outline: 1px rgb(50, 49, 49) solid;
+        background-color: rgb(24, 23, 23)
+    }
+    
+    .display-screen {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        outline: 1px rgb(50, 49, 49) solid;
+        background-color: rgb(24, 23, 23);
+    }
+    
+    .controls {
+        width: 160px;
+        height: 56px;
+        position: relative;
+        top: 40px;
+        left: 35px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        grid-area: controls;
+    }
+    
+    .controls button {
+        width: 72px;
+        height: 24px;
+        border-radius: 4px;
+        color: white;
+        background-color: darkred;
+    }
+    
+    #start {
+        width: 72px;
+        height: 40px;
+        border-radius: 40px;
+        position: relative;
+        top: 40px;
+        grid-area: start;
+        color: white;
+        background-color: darkred
+    }
+    
+    #score-screen {
+        width: 96px;
+        height: 64px;
+        position: relative;
+        top: 10px;
+        right: 30px;
+        grid-area: score;
+        text-align: center;
+        font-size: large;
+        background-color: rgb(24, 23, 23);
+        box-shadow:
+        inset -1px -1px gray
+    }
+    
+    #next-tetra {
+        width: 80px;
+        height: 64px;
+        position: relative;
+        top: 100px;
+        right: 30px;
+        grid-area: score;
+        text-align: center;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    #level-screen {
+        width: 96px;
+        height: 64px;
+        position: relative;
+        top: 190px;
+        right: 30px;
+        grid-area: score;
+        text-align: center;
+        font-size: large;
+        background-color: rgb(24, 23, 23);
+        box-shadow:
+        inset -1px -1px gray
+    }
+    
+    .lightblue {
+        background-color: cyan;
+    }
+    
+    .yellow {
+        background-color: yellow;
+    }
+    
+    .purple {
+        background-color: violet;
+    }
+    
+    .green {
+        background-color: greenyellow;
+    }
+    
+    .red {
+        background-color: red
+    }
+    
+    .blue {
+        background-color: lightskyblue;
+    }
+    
+    .orange {
+        background-color: orange;
+    }
+    
+    .row23, .row1, .row2 {
+        visibility: hidden;
+    }
+    
+    .anima {
+        animation: bubble 500ms;
+    }
+    
+    @keyframes bubble {
+        from {
+            background-color: red;
+            box-shadow: inset 5px 5px red;
+            opacity: 1;
+            transform: translateY(0%)
+        }
+        to {
+            background-color: purple;
+            box-shadow: inset 5px 5px 10px purple;
+            opacity: 0;
+            transform: translateY(100%)
+        }
+    }
+    
+    .pressed {
+        background-color: #ccc;
+        border: 1px solid #999;
+        box-shadow: inset 1px 1px 3px rgba(0,0,0,0.3);
+      }
+    
+    footer {
+        font-size: xx-small
+    }
+    
+    
+}

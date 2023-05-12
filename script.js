@@ -167,8 +167,8 @@ let updateScore = [10];
 let threshold = [100];
 let interval = 1000;
 let gameIsOver = false
-const themeSong = new Audio("/audio/theme.mp3")
-const collisionSound = new Audio("/audio/move.mp3")
+const themeSong = new Audio("theme.mp3")
+const collisionSound = new Audio("move.mp3")
 
 startButton.addEventListener('click', function() {
   timer = setInterval(moveDown, 1000);
@@ -283,7 +283,7 @@ function clearRow() {
         }, 500)
         scoring += numForScoring
         updateScoring()
-        const clearAudio = new Audio("/audio/clear.mp3")
+        const clearAudio = new Audio("clear.mp3")
         clearAudio.play()
       }
       moveRestOfTetrimonos(i)
